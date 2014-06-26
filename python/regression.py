@@ -149,8 +149,9 @@ if __name__ == '__main__':
     my_instcat = args.catalog
     nsensors = args.nsensors
     if args.phosimdir is None:
-        #phosimdir = os.environ['PHOSIMDIR']
-        phosimdir = '/nfs/slac/g/ki/ki18/jchiang/DESC/ImSim/phoSim/sims_phosim'
+        phosimdir = os.environ['PHOSIMDIR']
+    else:
+        phosimdir = args.phosimdir
 
     #
     # Set the seed.
