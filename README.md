@@ -24,7 +24,7 @@ These are scripts to do basic regression testing of the phosim code.
 * **setup.[c]sh**: Setup scripts to add the install directory to the 
   user's PYTHONPATH.
 
-#### Intended usage
+#### Example usage
 
     bash-4.1$ source <module_dir>/setup.sh     # Set up so that testing modules are in user's paths.
     bash-4.1$ regression.py reference_data -v  # Generate the reference dataset.
@@ -49,5 +49,5 @@ These are scripts to do basic regression testing of the phosim code.
 
     <...skip output...>
 
-    bash-4.1$ compare_output.py test_data -r reference_data  # Compare with [f]diff
+    bash-4.1$ compare_output.py test_data -r reference_data  # Compare using [f]diff
     bash-4.1$ 
