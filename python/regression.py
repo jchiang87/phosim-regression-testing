@@ -47,7 +47,7 @@ class InstCat(OrderedDict):
     incident photon count.
     """
     def __init__(self, instcat):
-        "instcat is the "
+        "instcat contains the main runtime parameters for phosim."
         super(InstCat, self).__init__()
         self.instcat = instcat
         for line in open(instcat):
@@ -149,8 +149,6 @@ if __name__ == '__main__':
     else:
         default_instcat = args.instcat
 
-    my_instcat = args.catalog
-    nsensors = args.nsensors
     if args.phosimdir is None:
         phosimdir = os.environ['PHOSIMDIR']
     else:
@@ -165,15 +163,21 @@ if __name__ == '__main__':
     #
     inst_cat = InstCat(default_instcat)
     inst_cat.generate_stars(args)
-    inst_cat.write(my_instcat)
+    inst_cat.write(args.catalog)
     inst_cat.ds9_regfile(os.path.join(phosimdir, 'output', 'ds9.reg'))
 
+    #
+    # Get the sensor ids and select a random subset.
+    #
     my_sensors = sensors(phosimdir)
     index = (np.array(random.randint(len(my_sensors), size=args.nsensors)),)
     my_sensors = sorted(my_sensors[index])
 
+    #
+    # Loop over the selected sensors and run phosim on each.
+    #
     curdir = os.path.abspath('.')
-    instcat = os.path.join(curdir, my_instcat)
+    instcat = os.path.join(curdir, args.catalog)
     for sensor in my_sensors:
         os.chdir(phosimdir)
         command = './phosim %s -s %s -c examples/nobackground' % (instcat, sensor)
@@ -181,4 +185,7 @@ if __name__ == '__main__':
             print command
         subprocess.call(command, shell=True)
         os.chdir(curdir)
+    #
+    # Copy the output from these runs to the destination directory.
+    #
     copy_output(phosimdir, dest_dir)
