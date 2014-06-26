@@ -146,6 +146,9 @@ if __name__ == '__main__':
         pythonpath = os.path.split(os.path.abspath(__file__))[0]
         default_instcat = os.path.join(pythonpath, '..', 'data',
                                        'default_instcat')
+    else:
+        default_instcat = args.instcat
+
     my_instcat = args.catalog
     nsensors = args.nsensors
     if args.phosimdir is None:
