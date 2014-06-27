@@ -141,7 +141,6 @@ if __name__ == '__main__':
                         help='Verbosity flag')
     args = parser.parse_args()
 
-    dest_dir = args.dest_dir
     if args.default_instcat is None:
         pythonpath = os.path.split(os.path.abspath(__file__))[0]
         default_instcat = os.path.join(pythonpath, '..', 'data',
@@ -188,4 +187,4 @@ if __name__ == '__main__':
     #
     # Copy the output from these runs to the destination directory.
     #
-    copy_output(phosimdir, dest_dir)
+    copy_output(phosimdir, args.dest_dir)
